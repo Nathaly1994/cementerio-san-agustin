@@ -1,5 +1,5 @@
-// services/openai.ts
-const OPENAI_API_KEY = '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';
+// services/op
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY || 'your-api-key-here';
 
 export interface ChatMessage {
   role: 'user' | 'assistant' | 'system';
@@ -12,9 +12,7 @@ export class OpenAIService {
 
   private constructor() {
     this.apiKey = OPENAI_API_KEY;
-  }
-
-  public static getInstance(): OpenAIService {
+    public static getInstance(): OpenAIService {
     if (!OpenAIService.instance) {
       OpenAIService.instance = new OpenAIService();
     }
@@ -73,6 +71,7 @@ export class OpenAIService {
       // Si OpenAI falla, devolver la información de la BD directamente
       if (context && context.length > 0) {
         return `Información del sistema:\n${context}`;
+
       }
       
       return 'Disculpa, estoy experimentando dificultades técnicas. Por favor, intenta nuevamente o contacta directamente con nuestro personal.';
